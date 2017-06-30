@@ -1,21 +1,25 @@
 ﻿@model IEnumerable<PlacementCountdown.Models.Student>
 
-@{
-    ViewBag.Title = "Index";
-}
+<link rel="stylesheet" href="~/Content/flipclock.css">
 
-<div id="countdown">
-
+<div class="container" id="countdown">
+    <h1>Percentage Placed: @ViewBag.PlacedPercent %</h1>
+    
 </div>
+    <div class="progress" style="width:50%;text-align:center">
+        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="@ViewData["PlacedValue"]" aria-valuemin="0" aria-valuemax="100" style="width: @ViewData["PlacedValue"]%">
+            <span class="sr-only">40% Complete (success)</span>
+        </div>
+    </div>
 
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
     
-
-@foreach (var item in Model)
-{  
-        <div class="col-sm-6 col-md-3 container">
+<div class=" container">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-3" id="boxes">
             <div class="thumbnail">
                 @*<img id ="headshots" class="img-responsive img-circle" src="~/headshots/@Html.DisplayFor(modelItem => item.Photo)" alt="@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName) Headshot">*@
                 <div class="caption">
@@ -23,14 +27,18 @@
                     <p>Position: @Html.DisplayFor(modelItem => item.JobTitle)</p>
                     <p>Company: @Html.DisplayFor(modelItem => item.CompanyName)</p>
                     <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    <p>@Html.ActionLink("Edit", "Edit", new { id = item.StudentID }) |
+                    <p>@Html.DisplayFor(modelItem => item.PlacementStatus)
+                        @Html.ActionLink("Edit", "Edit", new { id = item.StudentID }) |
                     @Html.ActionLink("Details", "Details", new { id = item.StudentID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.StudentID })</p>
-                </div>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.StudentID })
+                </p>
             </div>
         </div>
+    </div>
 
-            @*@Html.DisplayFor(modelItem => item.PlacementStatus)*@
-  
-}
+        @*@Html.DisplayFor(modelItem => item.PlacementStatus)*@
 
+    }
+</div>
+<script src="/assets/js/libs/jquery.js"></script>
+<script src="/assets/js/flipclock/flipclock.min.js"></script>

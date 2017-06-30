@@ -17,6 +17,19 @@ namespace PlacementCountdown.Controllers
         // GET: Students
         public ActionResult Index()
         {
+
+            //calculate % complete based on status of students
+            var allStudents = from student in db.Students
+                              select student;
+
+            //grab all students with jobs
+            var placedStudents = from student in db.Students
+                                 where student.PlacementStatus == false
+                                 select student;
+            //percentage calculation
+            ViewData["PlacedValue"] = (placedStudents.Count() / allStudents.Count()) * 100;
+            ViewBag.PlacedPercent = (placedStudents.Count() / allStudents.Count()) * 100;
+
             return View(db.Students.ToList());
         }
 
